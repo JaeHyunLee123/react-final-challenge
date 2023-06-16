@@ -54,6 +54,9 @@ a{
   text-decoration: none;
   color:inherit;
 }
+body{
+  background-color: ${(props) => props.theme.black.darker};
+}
 `;
 
 export default function App() {
