@@ -45,13 +45,10 @@ const Image = styled(motion.img)`
 `;
 
 const Overlay = styled(motion.div)`
-  width: 100vw;
-  height: 100vh;
-
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Home = () => {
@@ -84,7 +81,7 @@ const Home = () => {
         </Movies>
       )}
       <AnimatePresence>
-        {boxId ? (
+        {boxId !== null ? (
           <Overlay onClick={() => setBoxId(null)}>
             <MovieDetail movieid={data?.results[boxId].id}></MovieDetail>
           </Overlay>

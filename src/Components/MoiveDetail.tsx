@@ -3,8 +3,8 @@ import { makeBgPath, getMovie, IMovieDetail } from "../api";
 import { useQuery } from "@tanstack/react-query";
 
 const Wrapper = styled.div<{ bgphoto: string }>`
-  width: 70vw;
-  height: 80vh;
+  width: 600px;
+  height: 800px;
   color: ${(props) => props.theme.white.lighter};
   background-color: ${(props) => props.theme.black.lighter};
   border-radius: 30px;
