@@ -3,13 +3,31 @@ import { makeBgPath, getMovie, IMovieDetail } from "../api";
 import { useQuery } from "@tanstack/react-query";
 
 const Wrapper = styled.div<{ bgphoto: string }>`
-  width: 80vw;
-  color: whitesmoke;
+  width: 70vw;
+  height: 80vh;
+  color: ${(props) => props.theme.white.lighter};
+  background-color: ${(props) => props.theme.black.lighter};
+  border-radius: 30px;
+  padding: 0px 20px;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
+  justify-content: flex-end;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), #2f2f2f),
     url(${(props) => props.bgphoto});
-  background-size: cover;
+  background-position: center top;
+  background-size: 100% 50%;
+  background-repeat: no-repeat;
+  h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+  span:last-child {
+    margin-bottom: 50px;
+  }
 `;
 
 interface IProp {
@@ -22,22 +40,28 @@ const MovieDetail = ({ movieid = 0 }: IProp) => {
     () => getMovie(movieid.toString())
   );
 
+  const budget = data?.budget.toLocaleString();
+  const revenue = data?.revenue.toLocaleString();
+  const rating = data?.vote_average.toFixed(2);
+
   return (
-    <>
+    <div>
       {isLoading ? (
         <h1>Loading</h1>
       ) : (
         <Wrapper bgphoto={makeBgPath(data?.backdrop_path || "")}>
           <h1>{data?.title}</h1>
           <p>{data?.overview}</p>
-          <span>Budget: ${data?.budget}</span>
-          <span>Revenue: ${data?.revenue}</span>
+          <span>Budget: ${budget}</span>
+          <span>Revenue: ${revenue}</span>
           <span>Runtime: {data?.runtime} minutes</span>
-          <span>Rating: {data?.vote_average}</span>
-          <span>Homepage: {data?.homepage}</span>
+          <span>Rating: {rating}</span>
+          <span>
+            Homepage: <a href={`${data?.homepage}`}>{data?.homepage}</a>
+          </span>
         </Wrapper>
       )}
-    </>
+    </div>
   );
 };
 

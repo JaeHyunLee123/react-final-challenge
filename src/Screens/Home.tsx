@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getPopular, IAPIResponse, makeImagePath } from "../api";
 import MovieDetail from "../Components/MoiveDetail";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,7 +44,18 @@ const Image = styled(motion.img)`
   border-radius: 25px;
 `;
 
+const Overlay = styled(motion.div)`
+  width: 100vw;
+  height: 100vh;
+
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Home = () => {
+  const [boxId, setBoxId] = useState<number | null>(null);
   const { data, isLoading } = useQuery<IAPIResponse>(
     ["movies", "popular"],
     getPopular
@@ -59,8 +71,10 @@ const Home = () => {
               animate={{ scale: 1 }}
               transition={{ duration: 0.3, delay: index * 0.15 }}
               key={movie.id}
+              layoutId={`${index}`}
             >
               <Image
+                onClick={() => setBoxId(index)}
                 whileHover={{ y: -15 }}
                 src={`${makeImagePath(movie.backdrop_path)}`}
               />
@@ -69,6 +83,13 @@ const Home = () => {
           ))}
         </Movies>
       )}
+      <AnimatePresence>
+        {boxId ? (
+          <Overlay onClick={() => setBoxId(null)}>
+            <MovieDetail movieid={data?.results[boxId].id}></MovieDetail>
+          </Overlay>
+        ) : null}
+      </AnimatePresence>
     </Wrapper>
   );
 };
