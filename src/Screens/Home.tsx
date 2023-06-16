@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPopular, IAPIResponse, makeImagePath } from "../api";
+import { getPopular, IAPIResponse, makeBgPath, makeImagePath } from "../api";
+import MovieDetail from "../Components/MoiveDetail";
 import styled from "styled-components";
 
 const MovieBox = styled.div``;
@@ -15,11 +16,12 @@ const Home = () => {
       <h1>Popular</h1>
       {isLoading ? null : (
         <>
+          <MovieDetail movieid={data?.results[4].id} />
           {data?.results.map((movie) => (
-            <>
+            <MovieBox>
               <img src={`${makeImagePath(movie.backdrop_path)}`} />
               <h3>{movie.title}</h3>
-            </>
+            </MovieBox>
           ))}
         </>
       )}
