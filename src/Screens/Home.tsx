@@ -16,9 +16,8 @@ const Home = () => {
       <h1>Popular</h1>
       {isLoading ? null : (
         <>
-          <MovieDetail movieid={data?.results[4].id} />
           {data?.results.map((movie) => (
-            <MovieBox>
+            <MovieBox key={movie.id}>
               <img src={`${makeImagePath(movie.backdrop_path)}`} />
               <h3>{movie.title}</h3>
             </MovieBox>
