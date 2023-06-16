@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPopular, IAPIResponse, makeImagePath } from "../api";
+import styled from "styled-components";
+
+const MovieBox = styled.div``;
 
 const Home = () => {
   const { data, isLoading } = useQuery<IAPIResponse>(
