@@ -54,7 +54,9 @@ a{
   text-decoration: none;
   color:inherit;
 }
-
+body{
+  background-color:#181818;
+}
 `;
 
 export default function App() {
