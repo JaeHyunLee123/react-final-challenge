@@ -1,5 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { getNowPlaying, IAPIResponse, makeImagePath } from "../api";
+import { getNowPlaying, IAPIResponse } from "../api";
+import styled from "styled-components";
+import MovieList from "../Components/MovieList";
+
+const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.black.darker};
+`;
 
 const NowPlaying = () => {
   const { data, isLoading } = useQuery<IAPIResponse>(
@@ -8,19 +19,7 @@ const NowPlaying = () => {
   );
 
   return (
-    <>
-      <h1>Now playing</h1>
-      {isLoading ? null : (
-        <>
-          {data?.results.map((movie) => (
-            <>
-              <img src={`${makeImagePath(movie.backdrop_path)}`} />
-              <h3>{movie.title}</h3>
-            </>
-          ))}
-        </>
-      )}
-    </>
+    <Wrapper>{isLoading ? null : <MovieList movies={data?.results} />}</Wrapper>
   );
 };
 
