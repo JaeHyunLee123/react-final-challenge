@@ -46,9 +46,7 @@ const MovieDetail = ({ movieid = 0 }: IProp) => {
 
   return (
     <div>
-      {isLoading ? (
-        <h1>Loading</h1>
-      ) : (
+      {isLoading ? null : (
         <Wrapper bgphoto={makeBgPath(data?.backdrop_path || "")}>
           <h1>{data?.title}</h1>
           <p>{data?.overview}</p>
