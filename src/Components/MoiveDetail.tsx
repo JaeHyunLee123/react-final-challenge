@@ -32,7 +32,6 @@ const Wrapper = styled.div<{ bgphoto: string }>`
 
 interface IProp {
   movieid: number | undefined;
-  layoutId: number | undefined;
 }
 
 const MovieDetail = ({ movieid = 0 }: IProp) => {

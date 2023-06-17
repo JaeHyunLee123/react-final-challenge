@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,9 +47,7 @@ const Image = styled(motion.img)`
 
 const Overlay = styled(motion.div)`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  bottom: ${(window.innerHeight - 800) / 2}px;
 `;
 
 const Home = () => {
@@ -60,38 +59,34 @@ const Home = () => {
 
   return (
     <Wrapper>
+      {isLoading ? null : (
+        <Movies>
+          {data?.results.map((movie, index) => {
+            return (
+              <MovieBox
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.15 }}
+                key={movie.id}
+              >
+                {index === boxId ? null : (
+                  <Image
+                    onClick={() => setBoxId(index)}
+                    whileHover={{ y: -15 }}
+                    src={`${makeImagePath(movie.backdrop_path)}`}
+                    layoutId={`${index}`}
+                  />
+                )}
+                <span>{index === boxId ? "" : movie.title}</span>
+              </MovieBox>
+            );
+          })}
+        </Movies>
+      )}
       <AnimatePresence>
-        {isLoading ? null : (
-          <Movies>
-            {data?.results.map((movie, index) => {
-              return (
-                <MovieBox
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.15 }}
-                  key={movie.id}
-                >
-                  {index === boxId ? null : (
-                    <Image
-                      onClick={() => setBoxId(index)}
-                      whileHover={{ y: -15 }}
-                      src={`${makeImagePath(movie.backdrop_path)}`}
-                      layoutId={`${index}`}
-                    />
-                  )}
-                  <span>{index === boxId ? "" : movie.title}</span>
-                </MovieBox>
-              );
-            })}
-          </Movies>
-        )}
-
         {boxId !== null ? (
-          <Overlay onClick={() => setBoxId(null)}>
-            <MovieDetail
-              movieid={data?.results[boxId].id}
-              layoutId={boxId}
-            ></MovieDetail>
+          <Overlay onClick={() => setBoxId(null)} layoutId={`${boxId}`}>
+            <MovieDetail movieid={data?.results[boxId].id}></MovieDetail>
           </Overlay>
         ) : null}
       </AnimatePresence>
