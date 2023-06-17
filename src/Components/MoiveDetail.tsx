@@ -42,7 +42,7 @@ const MovieDetail = ({ movieid = 0 }: IProp) => {
 
   const budget = data?.budget.toLocaleString();
   const revenue = data?.revenue.toLocaleString();
-  const rating = data?.vote_average.toFixed(2);
+  const rating = data?.vote_average.toFixed(1);
 
   return (
     <div>
