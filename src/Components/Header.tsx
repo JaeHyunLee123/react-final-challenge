@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const Nav = styled.nav`
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
