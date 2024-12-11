@@ -8,6 +8,7 @@
     "@tanstack/react-query": "4.28.0",
     "@types/styled-components": "5.1.26",
     "framer-motion": "10.9.1",
+    "gh-pages": "^6.2.0",
     "loader-utils": "3.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -21,11 +22,14 @@
     "typescript": "4.4.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://jaehyunlee123.github.io/react-final-challenge/",
   "browserslist": [
     ">0.2%",
     "not dead",
